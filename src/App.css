@@ -9,9 +9,6 @@
   }
 }
 
-.Navbar{
-  background-color: #b0aec4;
-}
 .d-inline-block{
   border-radius: 15px;
   margin-right: 10px;
@@ -27,4 +24,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App h1 {
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #907986;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 15px;
 }
