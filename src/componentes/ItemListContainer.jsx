@@ -1,5 +1,5 @@
-export function Titulo (){
+export function Titulo ({title}){
     return(
-        <h1>Sakura Libreria</h1>
+        <h1>{title}</h1>
     )
 }

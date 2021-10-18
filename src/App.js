@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Menu />
-        <Titulo/>
+        <Titulo title="Sakura Libreria"/>
       </header>
     </div>
   );
