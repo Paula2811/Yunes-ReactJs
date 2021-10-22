@@ -1,4 +1,3 @@
-import logo from './logo4.png';
 import {Navbar,Container,Nav} from 'react-bootstrap';
 import {BsFillCartCheckFill} from 'react-icons/bs'
 //Navbar
@@ -9,7 +8,7 @@ export function Menu() {
                 <Navbar.Brand href="#home">
                     <img
                     alt=""
-                    src= {logo}
+                    src= '../logo4.png'
                     width="30"
                     height="30"
                     className="d-inline-block align-top"
@@ -32,3 +31,4 @@ function Icon (){
         <BsFillCartCheckFill/>
     )
 }
+
