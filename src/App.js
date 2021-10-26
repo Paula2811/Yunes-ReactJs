@@ -1,13 +1,15 @@
 import './App.css';
 import {Menu} from './componentes/Navbar.jsx';
-import {Titulo} from './componentes/ItemListContainer';
+import {ItemContainer} from './componentes/ItemListContainer';
+
+
+
 
 function App() {
   return (
     <div className="App">
         <Menu />
-        <Titulo title="Sakura Libreria"/>
-
+        <ItemContainer title="Sakura Libreria"/>
     </div>
   );
 }

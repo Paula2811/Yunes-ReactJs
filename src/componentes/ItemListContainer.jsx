@@ -1,31 +1,15 @@
-import {Card} from 'react-bootstrap';
-import ItemCount from './ItemCount';
+import { Productos } from './ItemList';
 
-export function Titulo ({title}){
+export function ItemContainer ({title}){
     return(
-        <div>
+        <div className="productos">
             <h1>{title}</h1>
             <div>
-                <ItemCard/>
+                <h2>Productos</h2> 
+                <div className="productList">
+                <Productos/>
+                </div>
             </div>
         </div>
-    )
-}
-
-function ItemCard(){
-    const agregarCarrito = (cantidad)=>{
-        console.log(`Agrego al carrito ${cantidad} productos`)
-    }
-    return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-                <Card.Title>Producto 1</Card.Title>
-                    <Card.Text>
-                        Algo sobre el producto 1
-                    </Card.Text>
-                    <ItemCount stock={15} initial={1} onAdd={agregarCarrito}/>
-            </Card.Body>
-        </Card>
     )
 }
