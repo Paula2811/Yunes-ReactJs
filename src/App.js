@@ -1,6 +1,7 @@
 import './App.css';
 import {Menu} from './componentes/Navbar.jsx';
 import {ItemContainer} from './componentes/ItemListContainer';
+import ItemDetailContainer from './componentes/ItemDetailContainer';
 
 
 
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
         <Menu />
         <ItemContainer title="Sakura Libreria"/>
+        <ItemDetailContainer/>
     </div>
   );
 }

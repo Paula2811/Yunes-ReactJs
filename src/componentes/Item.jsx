@@ -1,29 +1,23 @@
-const productos = [
-    {
-        id:1,
-        title: "Cuaderno Cherhane Funcional A5",
-        price:1050,
-        stock:10,
-        img: "../cuaderno.jpg"
-    },
-    {
-        id:2,
-        title: "Organizador FW Serie Fun Shine",
-        price:1355,
-        stock:6,
-        img: "../fw.jpg"
-    },
-    {
-        id:3,
-        title: "Resaltador Stabilo Swing Cool Pastel X6",
-        price:955,
-        stock:8,
-        img: "../stabilo-resaltadoe.gif"
-    }
-];
+import {Card} from 'react-bootstrap';
+import ItemCount from './ItemCount';
 
-export const Item = new Promise ((resolve, reject) => {
-    setTimeout(() => {
-        resolve (productos)
-    },2000)
-})
+export const Item = ({product})=>{
+    return(
+        <>
+        <Card key={product.id} style={{ width: '28rem' }} className="Card">
+                                        <Card.Img variant="top" src={product.img} />
+                                        <Card.Body>
+                                            <Card.Title>{product.title}</Card.Title>
+                                                <Card.Text>
+                                                    ${product.price}
+                                                </Card.Text>
+                                                <ItemCount stock={product.stock} initial={1} onAdd={agregarCarrito}/>
+                                        </Card.Body>
+        </Card>
+        </>
+    )
+}
+
+const agregarCarrito = (cantidad)=>{
+    console.log(`Agrego al carrito ${cantidad} productos`)
+}
