@@ -1,23 +1,23 @@
 import {Card} from 'react-bootstrap';
 import ItemCount from './ItemCount';
 
-const ItemDetail = ({detalle}) => {
+const ItemDetail = ({detail}) => {
     
     return(
-        <>
-        <Card key={detalle.id} style={{ width: '28rem' }} className="Card">
-                                        <Card.Img variant="top" src={detalle.img} />
+        <div>
+            <Card key={detail.id} style={{ width: '28rem' }} className="Card">
+                                        <Card.Img variant="top" src={detail.img} />
                                         <Card.Body>
-                                            <Card.Title>{detalle.title}</Card.Title>
+                                            <Card.Title>{detail.title}</Card.Title>
                                                 <Card.Text>
-                                                    {detalle.description}
+                                                    {detail.description}
                                                     <br />
-                                                    <b>${detalle.price}</b>
+                                                    <b>${detail.price}</b>
                                                 </Card.Text>
-                                                <ItemCount stock={detalle.stock} initial={1} onAdd={agregarCarrito}/>
+                                                <ItemCount stock={detail.stock} initial={1} onAdd={agregarCarrito}/>
                                         </Card.Body>
-        </Card>
-        </>
+            </Card>
+        </div>
     )
 }
 

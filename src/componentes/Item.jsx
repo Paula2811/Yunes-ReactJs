@@ -1,5 +1,6 @@
-import {Card} from 'react-bootstrap';
-import ItemCount from './ItemCount';
+import {Card,Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
+
 
 export const Item = ({product})=>{
     return(
@@ -9,15 +10,17 @@ export const Item = ({product})=>{
                                         <Card.Body>
                                             <Card.Title>{product.title}</Card.Title>
                                                 <Card.Text>
+                                                    {`${product.categoria}`}
                                                     ${product.price}
                                                 </Card.Text>
-                                                <ItemCount stock={product.stock} initial={1} onAdd={agregarCarrito}/>
+                                                <div>
+                                                    <Link to={`/detalle/${product.id}`}>
+                                                    <Button variant="primary">Ver mas</Button>
+                                                    </Link>
+                                                </div>
+                                                
                                         </Card.Body>
         </Card>
         </>
     )
-}
-
-const agregarCarrito = (cantidad)=>{
-    console.log(`Agrego al carrito ${cantidad} productos`)
 }
