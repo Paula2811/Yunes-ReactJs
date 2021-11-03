@@ -1,4 +1,4 @@
-const productos = [
+export const productos = [
     {
         id:"1",
         title: "Cuaderno Cherhane Funcional A5",
