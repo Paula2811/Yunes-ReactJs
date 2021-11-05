@@ -14,7 +14,7 @@ export const productos = [
         price:1355,
         stock:6,
         img: "../fw.jpg",
-        description: "Cuaderno tapa dura con sistema de discos, posee 96 hojas rayadas de 120gr",
+        description: "Los organizadores más lindos y multiuso. Son resistentes hechos en cuero PU cierre gold más grueso. Divisiones internas con elástico, cierres y red. Lo podes usar de protadocumentos, portacosmeticos, para poner brochas de maquillaje , cartuchera, para poner la table o e-reader.",
         categoria: "organizadores"
     },
     {
@@ -23,7 +23,7 @@ export const productos = [
         price:955,
         stock:8,
         img: "../stabilo-resaltadoe.gif",
-        description: "Cuaderno tapa dura con sistema de discos, posee 96 hojas rayadas de 120gr",
+        description: "Colores Disponibles: Celeste, Verde, Amarillo, Rosa, Violeta, Coral",
         categoria: "resaltadores"
     }
 ];

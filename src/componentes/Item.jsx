@@ -10,7 +10,6 @@ export const Item = ({product})=>{
                                         <Card.Body>
                                             <Card.Title>{product.title}</Card.Title>
                                                 <Card.Text>
-                                                    {`${product.categoria}`}
                                                     ${product.price}
                                                 </Card.Text>
                                                 <div>

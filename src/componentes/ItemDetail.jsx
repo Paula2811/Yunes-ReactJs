@@ -1,8 +1,12 @@
 import {Card} from 'react-bootstrap';
 import ItemCount from './ItemCount';
+import { useState } from "react";
 
 const ItemDetail = ({product}) => {
-    
+    const agregarCarrito = (cantidad)=>{
+        alert(`Agrego al carrito ${cantidad} productos`)
+    }
+
     return(
         <div>
             <Card key={product.id} style={{ width: '28rem' }} className="Card">
@@ -23,6 +27,3 @@ const ItemDetail = ({product}) => {
 
 export default ItemDetail;
 
-const agregarCarrito = (cantidad)=>{
-    console.log(`Agrego al carrito ${cantidad} productos`)
-}

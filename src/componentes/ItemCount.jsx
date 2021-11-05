@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import {Button,InputGroup,FormControl} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function ItemCount({stock,initial,onAdd}){
     const [count, setCount] = useState(initial)
+    const [changeButton, setChangeButton] = useState(false)
 
     const disminuir=()=>{
         if(count>1){
             setCount(count-1)
         }else{
-            console.log("No puede elegir menor a 1")
+            alert("No puede elegir menor a 1")
         }
     }
 
@@ -16,10 +18,14 @@ export default function ItemCount({stock,initial,onAdd}){
         if(count<stock){
             setCount(count+1)
         }else{
-            console.log("Alcanzo el maximo del stock disponible")
+            alert("Alcanzo el maximo del stock disponible")
         }
     }
 
+    const addManipulator = ()=>{
+        onAdd(count)
+        setChangeButton(true)
+    }
 
     return (
         <div>
@@ -28,7 +34,10 @@ export default function ItemCount({stock,initial,onAdd}){
                 <FormControl className="text-center" aria-label="Example text with two button addons" value={count}/>
                 <Button variant="outline-primary" onClick={aumentar} disabled={count>stock}>+</Button>
             </InputGroup>
-            <Button variant="primary" onClick={()=>onAdd(count)}>Agregar al Carrito</Button>
+            { changeButton 
+            ? <Link to="/cart"><Button variant="outline-primary" >Terminar compra</Button></Link>
+            : <Button variant="outline-primary" onClick={addManipulator}>Agregar al carrito</Button>
+            }
         </div>
     )
 }

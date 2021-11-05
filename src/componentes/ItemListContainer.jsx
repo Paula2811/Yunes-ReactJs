@@ -1,21 +1,21 @@
 import { ItemList} from './ItemList';
 import {useEffect,useState} from 'react';
 import {useParams} from 'react-router-dom'
-import {Productos} from '../services/getFetch';
+import GetFetchDetail from '../services/getFetchDetail';
 
 export function ItemContainer ({title}){
     const [product, setProduct] = useState([])
     const {idCategorias} = useParams()
     useEffect(() =>{
         if(idCategorias){
-            Productos
+            GetFetchDetail
             .then (res => {
                 console.log("Llamada a la base de datos");
                 setProduct(res.filter(prod=>prod.categoria === idCategorias))
             })
             .catch(err => console.log(err))
         }else{
-            Productos
+            GetFetchDetail
             .then (res => {
                 console.log("Llamada a la base de datos");
                 setProduct(res)

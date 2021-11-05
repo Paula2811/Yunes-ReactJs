@@ -7,7 +7,7 @@ export function Menu() {
     return(
         <Navbar bg="dark" variant="dark" ClassName="Navbar">
             <Container>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/">
                     <img
                     alt=""
                     src= '../logo4.png'
