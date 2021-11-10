@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import {Button,InputGroup,FormControl} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+
+
 export default function ItemCount({stock,initial,onAdd}){
     const [count, setCount] = useState(initial)
     const [changeButton, setChangeButton] = useState(false)
-
+    
     const disminuir=()=>{
         if(count>1){
             setCount(count-1)

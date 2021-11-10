@@ -1,12 +1,18 @@
 import {Card} from 'react-bootstrap';
 import ItemCount from './ItemCount';
-import { useState } from "react";
+import { useCartContext } from '../context/CartContext';
+import { useState } from 'react';
 
 const ItemDetail = ({product}) => {
-    const agregarCarrito = (cantidad)=>{
-        alert(`Agrego al carrito ${cantidad} productos`)
-    }
+    const [count, setCount] = useState(1)
+    const {addToCartList} = useCartContext()
 
+    const onAdd = (cantidad)=>{
+        alert(`Agrego al carrito ${cantidad} productos`)
+        setCount(cantidad)
+        addToCartList({product, cantidad: cantidad})
+    }
+    
     return(
         <div>
             <Card key={product.id} style={{ width: '28rem' }} className="Card">
@@ -18,7 +24,7 @@ const ItemDetail = ({product}) => {
                                                     <br />
                                                     <b>${product.price}</b>
                                                 </Card.Text>
-                                                <ItemCount stock={product.stock} initial={1} onAdd={agregarCarrito}/>
+                                                <ItemCount stock={product.stock} initial={1} onAdd={onAdd}/>
                                         </Card.Body>
             </Card>
         </div>
