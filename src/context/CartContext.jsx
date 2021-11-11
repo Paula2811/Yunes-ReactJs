@@ -25,7 +25,7 @@ const CartContextProvider = ({children}) =>{
         }
     }
 
-    const eliminarItem = idItemToRemove => {
+    const removeItem = idItemToRemove => {
         const itemToRemove = cartList.find(itemInCart => itemInCart.product.id === idItemToRemove)
         setItemCantidad(itemCantidad - itemToRemove.cantidad)
         setCartTotal(cartTotal - (itemToRemove.product.price * itemToRemove.cantidad))
@@ -41,8 +41,10 @@ const CartContextProvider = ({children}) =>{
         <CartContext.Provider value ={{
             cartList,
             addToCartList,
-            eliminarItem,
-            removeCart
+            removeItem,
+            removeCart,
+            itemCantidad,
+            cartTotal
         }}>
             {children}
         </CartContext.Provider>

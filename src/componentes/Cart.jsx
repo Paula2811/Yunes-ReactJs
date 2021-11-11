@@ -3,16 +3,11 @@ import {Link} from "react-router-dom"
 import { useCartContext } from '../context/CartContext';
 
 const Cart = () =>{
-    const {cartList, removeItem, removeCart, cartTotal, total} = useCartContext()
+    const {cartList, removeItem, removeCart, cartTotal} = useCartContext()
     
     return (
         <div>
-            <div className=
-                {cartList.length
-                ? "carrito-lleno"
-                : "carrito-vacio"
-                }
-                > 
+            <div> 
                 {cartList.map(itemAgregado => 
                     <Card key={itemAgregado.product.id} style={{ width: '28rem' }} className="Card">
                         <Card.Img variant="top" src={itemAgregado.product.img} />
@@ -27,7 +22,7 @@ const Cart = () =>{
                                 </Card.Text>
                                 <Button variant="primary" onClick={() => removeItem(itemAgregado.product.id)}>Eliminar Producto</Button>
                                 <Card.Text>
-                                Total: $ {itemAgregado.cantidad* itemAgregado.product.total}
+                                Total: $ {itemAgregado.cantidad * itemAgregado.product.price}
                                 {console.log(cartTotal)}
                                 </Card.Text>
                         </Card.Body>
@@ -35,8 +30,9 @@ const Cart = () =>{
                 )}
                 <div>
                     <Card.Text>
-                        Total: $ {total}
-                        {console.log(cartTotal)}
+                        <b>
+                        Total:  $ {`${cartTotal}`}
+                        </b>
                     </Card.Text>
                 </div>
             </div>

@@ -1,7 +1,8 @@
 import {NavLink} from 'react-router-dom'
 import './Navbar.css'
 import {Navbar,Container,Nav} from 'react-bootstrap';
-import {BsFillCartCheckFill} from 'react-icons/bs'
+import { Icon } from '../CartWidget/CartWidget';
+
 //Navbar
 export function Menu() {
     return(
@@ -28,10 +29,5 @@ export function Menu() {
         </Navbar>
     )
 }
-//Icono
-function Icon (){
-    return(
-        <BsFillCartCheckFill/>
-    )
-}
+
 

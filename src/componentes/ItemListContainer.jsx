@@ -5,6 +5,7 @@ import GetFetchDetail from '../services/getFetchDetail';
 
 export function ItemContainer ({title}){
     const [product, setProduct] = useState([])
+    const [loading, setLoading] = useState(true)
     const {idCategorias} = useParams()
     useEffect(() =>{
         if(idCategorias){
@@ -14,6 +15,7 @@ export function ItemContainer ({title}){
                 setProduct(res.filter(prod=>prod.categoria === idCategorias))
             })
             .catch(err => console.log(err))
+            .finally(() => setLoading(false))
         }else{
             GetFetchDetail
             .then (res => {
@@ -21,6 +23,7 @@ export function ItemContainer ({title}){
                 setProduct(res)
             })
             .catch(err => console.log(err))
+            .finally(() => setLoading(false))
         }
         
     },[idCategorias])
@@ -32,7 +35,10 @@ export function ItemContainer ({title}){
                 <div>
                     <h2>Productos</h2> 
                     <div className="productList">
-                    <ItemList product={product}/>
+                    {loading
+                    ? <h2 ClassName="loading">Loading...</h2>
+                    : <ItemList product={product}/>
+                    }
                     </div>
                 </div>
             </div>
