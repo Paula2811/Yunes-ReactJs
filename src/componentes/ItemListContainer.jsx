@@ -1,26 +1,30 @@
 import { ItemList} from './ItemList';
 import {useEffect,useState} from 'react';
 import {useParams} from 'react-router-dom'
-import GetFetchDetail from '../services/getFetchDetail';
+import { getFirestore } from '../services/getFirestore';
 
 export function ItemContainer ({title}){
     const [product, setProduct] = useState([])
     const [loading, setLoading] = useState(true)
     const {idCategorias} = useParams()
     useEffect(() =>{
+        const db = getFirestore()
+        
         if(idCategorias){
-            GetFetchDetail
+            const dbQuery = db.collection("items").where("categoria", "==", idCategorias).get()
+            dbQuery
             .then (res => {
                 console.log("Llamada a la base de datos");
-                setProduct(res.filter(prod=>prod.categoria === idCategorias))
+                setProduct(res.docs.map(item => ({id:item.id, ...item.data()})))
             })
             .catch(err => console.log(err))
             .finally(() => setLoading(false))
         }else{
-            GetFetchDetail
+            const dbQuery = db.collection("items").orderBy("categoria").get()
+            dbQuery
             .then (res => {
                 console.log("Llamada a la base de datos");
-                setProduct(res)
+                setProduct(res.docs.map(item => ({id:item.id, ...item.data()})))
             })
             .catch(err => console.log(err))
             .finally(() => setLoading(false))

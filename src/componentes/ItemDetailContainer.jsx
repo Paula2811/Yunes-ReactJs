@@ -2,7 +2,7 @@ import React from 'react';
 import ItemDetail from './ItemDetail';
 import { useState, useEffect } from 'react';
 import {useParams} from 'react-router-dom'
-import GetFetchDetail from '../services/getFetchDetail';
+import { getFirestore } from '../services/getFirestore';
 
 
 const ItemDetailContainer = () => {
@@ -10,10 +10,12 @@ const ItemDetailContainer = () => {
     const {id} = useParams()
 
     useEffect(() =>{
-        GetFetchDetail
-        .then (res => {
+        const db = getFirestore()
+        const dbQuery = db.collection('items').doc(id).get()
+        dbQuery
+        .then (item => {
             console.log("Llamada a la base de datos");
-            setDetail(res.find(prod => prod.id === id))
+            setDetail({id:item.id, ...item.data()})
         })
         .catch(err => console.log(err))
     },[id])
