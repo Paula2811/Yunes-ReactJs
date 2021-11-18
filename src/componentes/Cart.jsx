@@ -19,31 +19,23 @@ const Cart = () =>{
         orden.buyer = formData
         orden.total = cartTotal;
         orden.item = cartList.map(itemAgregado => {
-            const id = itemAgregado.id;
-            const title = itemAgregado.title
-            const price = itemAgregado.price * itemAgregado.cantidad
+            const id = itemAgregado.product.id;
+            const title = itemAgregado.product.title
+            const total = itemAgregado.product.price * itemAgregado.cantidad
             
-            return {id, title, price}   
+            return {id, title, total}   
         })
-        console.log(orden)
-        console.log(cartList)
-        console.log(cartTotal)
-        console.log(formData)
 
         const dbQuery = getFirestore()
 
         dbQuery.collection("orders").add(orden)
         .then(resp => setIdOrder(resp.id))
         .catch(err=> console.log("Error: ",err))
-        .finally(()=> setFormData({
-            name:'',
-            email:'',
-            phone:''
-        }))
+        .finally(()=> removeCart())
         console.log(orden)
 
         const itemsToUpdate = dbQuery.collection('items').where(
-            firebase.firestore.FieldPath.documentId(), 'in', cartList.map(i=> i.id)
+            firebase.firestore.FieldPath.documentId(), 'in', cartList.map(idToUpdate=> idToUpdate.product.id)
         )
     
         const batch = dbQuery.batch();
@@ -53,7 +45,7 @@ const Cart = () =>{
         .then( collection=>{
             collection.docs.forEach(docSnapshot => {
                 batch.update(docSnapshot.ref, {
-                    stock: docSnapshot.data().stock - cartList.find(item => item.id === docSnapshot.id).cantidad
+                    stock: docSnapshot.data().stock - cartList.find(idToUpdate => idToUpdate.product.id === docSnapshot.id).product.cantidad
                 })
             })
     
@@ -72,6 +64,23 @@ const Cart = () =>{
     console.log(formData)
     return (
         <div className="form">
+            {cartList.length
+            ? <Button  onClick={() => removeCart()} className="cart">Vaciar carrito</Button>
+            :idOrder ===""
+                ?<div>
+                <b>El carrito está vacío</b>
+                <Link to="/"> 
+                    <Button variant="primary">Ir al Inicio</Button>
+                </Link>
+                </div>
+                : <div>
+                <p>¡Gracias por tu compra!</p>
+                <p>El Id de tu compra es: {idOrder}</p>
+                <Link to="/"> 
+                    <Button variant="primary">Ir al Inicio</Button>
+                </Link>
+                </div>
+            }
             <div> 
                 {cartList.map(itemAgregado => 
                     <Card key={itemAgregado.product.id} style={{ width: '28rem' }} className="Card">
@@ -92,44 +101,25 @@ const Cart = () =>{
                         </Card.Body>
                     </Card>    
                 )}
-                <div>
-                    <Card.Text className="cart">
-                        <b>
-                        Total:  $ {`${cartTotal}`}
-                        </b>
-                    </Card.Text>
-                </div>
             </div>
-        {cartList.length
-        ? <Button  onClick={() => removeCart()} className="cart">Vaciar carrito</Button>
-        :idOrder ===""
-            ?<div>
-                <b>El carrito está vacío</b>
-                <Link to="/"> 
-                    <Button variant="primary">Ir al Inicio</Button>
-                </Link>
+            <div>
+                <b>
+                    Total:  $ {`${cartTotal}`}
+                </b>
             </div>
-            : <div>
-            <p>¡Gracias por tu compra!</p>
-            <p>El Id de tu compra es: {idOrder}</p>
-            <Link to="/"> 
-                    <Button variant="primary">Ir al Inicio</Button>
-            </Link>
-            </div>
-        }
-        <form onSubmit={generarOrden} onChange={handleChange}>
+            <form onSubmit={generarOrden} onChange={handleChange}>
                 <legend >Ingresá tus datos</legend>
                 <div className="formItem">
                     <label>Nombre:</label>
-                    <input type="text" name="name" placeholder="Ingresa tu nombre" value={formData.name}/>
+                    <input type="text" name="name" placeholder="Ingresa tu nombre" defaultValue={formData.name}/>
                 </div>
                 <div className="formItem">
                     <label>Email:</label>
-                    <input type="email" name="email" placeholder="ejemplo@email.com" value={formData.email}/>
+                    <input type="email" name="email" placeholder="ejemplo@email.com" defaultValue={formData.email}/>
                 </div>
                 <div className="formItem">
                     <label>Teléfono:</label>
-                    <input type="text" name="phone" placeholder="Ingresa tu telefono" value={formData.phone}/> 
+                    <input type="text" name="phone" placeholder="Ingresa tu telefono" defaultValue={formData.phone}/> 
                 </div>
                 <button>Terminar la compra!</button>
             </form>
