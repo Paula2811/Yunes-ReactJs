@@ -1,4 +1,4 @@
-import {Card, Button, Alert} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 import {Link} from "react-router-dom"
 import { useState} from 'react'
 import { useCartContext } from '../context/CartContext';
@@ -9,37 +9,38 @@ import 'firebase/firestore'
 
 const Cart = () =>{
     const {cartList, removeItem, removeCart, cartTotal} = useCartContext()
-    const [formData, setFormData]= useState({name:"", email:"",number:""})
-    const [idOrder, setIdOrder] = useState("");
-
+    const [formData, setFormData]= useState({name:"", email:"",phone:""})
+    const [idOrder, setIdOrder] = useState("")
+    
     const generarOrden = (e)=>{
         e.preventDefault()
-
         let orden = {}
         orden.date = firebase.firestore.Timestamp.fromDate(new Date());    
         orden.buyer = formData
         orden.total = cartTotal;
-        orden.items = cartList.map(cartItem => {
-            const id = cartItem.id;
-            const title = cartItem.title;
-            const price = cartItem.price * cartItem.cantidad;
+        orden.item = cartList.map(itemAgregado => {
+            const id = itemAgregado.id;
+            const title = itemAgregado.title
+            const price = itemAgregado.price * itemAgregado.cantidad
             
             return {id, title, price}   
         })
         console.log(orden)
         console.log(cartList)
         console.log(cartTotal)
+        console.log(formData)
+
         const dbQuery = getFirestore()
 
-        dbQuery.collection('orders').add(orden)
+        dbQuery.collection("orders").add(orden)
         .then(resp => setIdOrder(resp.id))
-        .catch(err=> console.log(err))
+        .catch(err=> console.log("Error: ",err))
         .finally(()=> setFormData({
             name:'',
-            phone:'',
-            email: ''
+            email:'',
+            phone:''
         }))
-
+        console.log(orden)
 
         const itemsToUpdate = dbQuery.collection('items').where(
             firebase.firestore.FieldPath.documentId(), 'in', cartList.map(i=> i.id)
@@ -108,34 +109,30 @@ const Cart = () =>{
                     <Button variant="primary">Ir al Inicio</Button>
                 </Link>
             </div>
-            :<Alert variant="success">
-                <Alert.Heading>Gracias por su compra!</Alert.Heading>
-                <p>
-                Tu codigo de compra es {idOrder}
-                </p>
-                <hr />
-                <Link to="/" className="mb-0"> 
+            : <div>
+            <p>¡Gracias por tu compra!</p>
+            <p>El Id de tu compra es: {idOrder}</p>
+            <Link to="/"> 
                     <Button variant="primary">Ir al Inicio</Button>
-                </Link>
-            </Alert>
+            </Link>
+            </div>
         }
         <form onSubmit={generarOrden} onChange={handleChange}>
-                    <legend className="form-legend">Ingresá tus datos</legend>
-                    <div>
-                        <label htmlFor="name" >Nombre</label>
-                        <input type="text" name="name" placeholder="Ingresa tu nombre" value={formData.name}/>
-                    </div>
-                    <div>
-                        <label htmlFor="email" >Email</label>
-                        <input type="email" name="email" placeholder="ejemplo@tuemail.com" value={formData.email}/>
-                    </div>
-                    <div>
-                        <label htmlFor="number" >Teléfono</label>
-                        <input type="text" name="number" placeholder="Ingresa tu telefono" defaultValue={formData.number}/> 
-                        
-                    </div>
-                    <button >Comprar!</button>
-                </form>
+                <legend >Ingresá tus datos</legend>
+                <div className="formItem">
+                    <label>Nombre:</label>
+                    <input type="text" name="name" placeholder="Ingresa tu nombre" value={formData.name}/>
+                </div>
+                <div className="formItem">
+                    <label>Email:</label>
+                    <input type="email" name="email" placeholder="ejemplo@email.com" value={formData.email}/>
+                </div>
+                <div className="formItem">
+                    <label>Teléfono:</label>
+                    <input type="text" name="phone" placeholder="Ingresa tu telefono" value={formData.phone}/> 
+                </div>
+                <button>Terminar la compra!</button>
+            </form>
         </div>
     )
     
