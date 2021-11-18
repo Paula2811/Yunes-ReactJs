@@ -121,7 +121,7 @@ const Cart = () =>{
                     <label>Teléfono:</label>
                     <input type="text" name="phone" placeholder="Ingresa tu telefono" defaultValue={formData.phone}/> 
                 </div>
-                <button>Terminar la compra!</button>
+                <button className="formButton">Terminar la compra!</button>
             </form>
         </div>
     )
