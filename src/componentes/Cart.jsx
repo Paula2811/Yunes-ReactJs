@@ -1,4 +1,4 @@
-import {Card, Button, Form, Alert} from 'react-bootstrap';
+import {Card, Button, Alert} from 'react-bootstrap';
 import {Link} from "react-router-dom"
 import { useState} from 'react'
 import { useCartContext } from '../context/CartContext';
@@ -26,8 +26,9 @@ const Cart = () =>{
             
             return {id, title, price}   
         })
-
-        
+        console.log(orden)
+        console.log(cartList)
+        console.log(cartTotal)
         const dbQuery = getFirestore()
 
         dbQuery.collection('orders').add(orden)
@@ -118,24 +119,23 @@ const Cart = () =>{
                 </Link>
             </Alert>
         }
-        <Form onSubmit={generarOrden} onChange={handleChange} className="cart">
-            <legend className="form-legend">Ingresá tus datos</legend>
-            <Form.Group className="mb-3">
-                <Form.Label>Nombre</Form.Label>
-                <Form.Control type="text" placeholder="Enter name" value={formData.name}/>
-            </Form.Group>
-            <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter your email" value={formData.email}/>
-            </Form.Group>
-            <Form.Group className="mb-3">
-            <Form.Label>Telefono</Form.Label>
-                <Form.Control type="text" placeholder="Enter your phone number" value={formData.number} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Terminar la compra!
-            </Button>
-        </Form>
+        <form onSubmit={generarOrden} onChange={handleChange}>
+                    <legend className="form-legend">Ingresá tus datos</legend>
+                    <div>
+                        <label htmlFor="name" >Nombre</label>
+                        <input type="text" name="name" placeholder="Ingresa tu nombre" value={formData.name}/>
+                    </div>
+                    <div>
+                        <label htmlFor="email" >Email</label>
+                        <input type="email" name="email" placeholder="ejemplo@tuemail.com" value={formData.email}/>
+                    </div>
+                    <div>
+                        <label htmlFor="number" >Teléfono</label>
+                        <input type="text" name="number" placeholder="Ingresa tu telefono" defaultValue={formData.number}/> 
+                        
+                    </div>
+                    <button >Comprar!</button>
+                </form>
         </div>
     )
     
