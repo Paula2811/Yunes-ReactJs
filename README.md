@@ -2,6 +2,8 @@
 
 Este proyecto es una aplicación creada en react para el curso de React JS de Coder House.
 
+Podes verlo entrando a https://awesome-fermi-64503b.netlify.app
+
 Decidí hacer un ecommerce de una libreria ya que tengo un instagram relacionado a todo lo que es papeleria y material de estudio.
 
 # Estructura 
@@ -10,8 +12,12 @@ Empieza por el inicio, donde se muestran los productos. En el menu tenemos las c
 
 # Dependencias
 
-Tengo instaladas las dependencias de Bootstrap, para mejorar los estilos y darle mas dinamismo a la App.
-
+Tengo instaladas las dependencias de:
+    Firebase: 8.9.1,
+    React-bootstrap: 2.0.0-rc.0,
+    React-icons: 4.3.1,
+    React-router-dom: 5.3.0
+    
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
