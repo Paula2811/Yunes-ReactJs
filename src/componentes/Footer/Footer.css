@@ -1,0 +1,20 @@
+.footer__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+    
+}
+.mediosdepago{
+    margin-top: 25px;
+}
+.redes .redes__enlace {
+    text-decoration: none;
+    margin-left: 5px; 
+}
+
+footer{
+    background-color: #212529;
+    color:aliceblue;
+    
+}

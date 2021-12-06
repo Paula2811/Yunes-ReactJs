@@ -6,7 +6,7 @@ import { Icon } from '../CartWidget/CartWidget';
 //Navbar
 export function Menu() {
     return(
-        <Navbar bg="dark" variant="dark" ClassName="Navbar">
+        <Navbar bg="dark" variant="dark" className="Navbar">
             <Container>
                 <Navbar.Brand href="/">
                     <img
@@ -20,10 +20,10 @@ export function Menu() {
                 </Navbar.Brand>
                 <Nav className="d-flex">
                     <NavLink to="/">Inicio</NavLink>
-                    <NavLink to="/categoria/cuadernos" ClassName="nav-link">Cuadernos</NavLink>
-                    <NavLink to="/categoria/organizadores" ClassName="nav-link">Organizadores</NavLink>
-                    <NavLink to="/categoria/resaltadores" ClassName="nav-link">Resaltadores</NavLink>
-                    <NavLink to="/cart" ClassName="nav-link"><Icon/></NavLink>
+                    <NavLink to="/categoria/cuadernos" className="nav-link">Cuadernos</NavLink>
+                    <NavLink to="/categoria/organizadores" className="nav-link">Organizadores</NavLink>
+                    <NavLink to="/categoria/resaltadores" className="nav-link">Resaltadores</NavLink>
+                    <NavLink to="/cart" className="nav-link"><Icon/></NavLink>
                 </Nav>
             </Container>
         </Navbar>

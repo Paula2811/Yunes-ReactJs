@@ -6,14 +6,14 @@ import { getFirestore } from '../services/getFirestore';
 import '../css/cart.css'
 import firebase from "firebase"
 import 'firebase/firestore'
+import { DataForm } from './DataForm';
 
 const Cart = () =>{
-    const {cartList, removeItem, removeCart, cartTotal} = useCartContext()
-    const [formData, setFormData]= useState({name:"", email:"",phone:""})
+    const {cartList, removeItem, removeCart, cartTotal,formData} = useCartContext()
+    
     const [idOrder, setIdOrder] = useState("")
     
-    const generarOrden = (e)=>{
-        e.preventDefault()
+    const generarOrden = ()=>{
         let orden = {}
         orden.date = firebase.firestore.Timestamp.fromDate(new Date());    
         orden.buyer = formData
@@ -22,7 +22,6 @@ const Cart = () =>{
             const id = itemAgregado.product.id;
             const title = itemAgregado.product.title
             const total = itemAgregado.product.price * itemAgregado.cantidad
-            
             return {id, title, total}   
         })
 
@@ -32,7 +31,6 @@ const Cart = () =>{
         .then(resp => setIdOrder(resp.id))
         .catch(err=> console.log("Error: ",err))
         .finally(()=> removeCart())
-        console.log(orden)
 
         const itemsToUpdate = dbQuery.collection('items').where(
             firebase.firestore.FieldPath.documentId(), 'in', cartList.map(idToUpdate=> idToUpdate.product.id)
@@ -48,32 +46,22 @@ const Cart = () =>{
                     stock: docSnapshot.data().stock - cartList.find(idToUpdate => idToUpdate.product.id === docSnapshot.id).product.cantidad
                 })
             })
-    
-            batch.commit().then(res =>{
-                console.log('resultado batch:', res)
-            })
+            batch.commit()
         })
 
     }
-    const handleChange = (e) =>{
-        setFormData({
-            ...formData, 
-            [e.target.name]: e.target.value
-        })
-    }
-    console.log(formData)
     return (
         <div className="form">
             {cartList.length
             ? <Button  onClick={() => removeCart()} className="cart">Vaciar carrito</Button>
             :idOrder ===""
-                ?<div>
-                <b>El carrito está vacío</b>
+                ?<div className="compra">
+                <p>El carrito está vacío</p>
                 <Link to="/"> 
                     <Button variant="primary">Ir al Inicio</Button>
                 </Link>
                 </div>
-                : <div>
+                : <div className="compra">
                 <p>¡Gracias por tu compra!</p>
                 <p>El Id de tu compra es: {idOrder}</p>
                 <Link to="/"> 
@@ -102,27 +90,12 @@ const Cart = () =>{
                     </Card>    
                 )}
             </div>
-            <div>
-                <b>
+            <div className="compra">
+                <p>
                     Total:  $ {`${cartTotal}`}
-                </b>
+                </p>
             </div>
-            <form onSubmit={generarOrden} onChange={handleChange}>
-                <legend >Ingresá tus datos</legend>
-                <div className="formItem">
-                    <label>Nombre:</label>
-                    <input type="text" name="name" placeholder="Ingresa tu nombre" defaultValue={formData.name}/>
-                </div>
-                <div className="formItem">
-                    <label>Email:</label>
-                    <input type="email" name="email" placeholder="ejemplo@email.com" defaultValue={formData.email}/>
-                </div>
-                <div className="formItem">
-                    <label>Teléfono:</label>
-                    <input type="text" name="phone" placeholder="Ingresa tu telefono" defaultValue={formData.phone}/> 
-                </div>
-                <button className="formButton">Terminar la compra!</button>
-            </form>
+            <DataForm generarOrden={generarOrden}/>
         </div>
     )
     

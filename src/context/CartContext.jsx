@@ -10,11 +10,11 @@ const CartContextProvider = ({children}) =>{
     const [itemCantidad, setItemCantidad] = useState(0)
     const [cartTotal, setCartTotal] = useState(0)
     const [cartList,setCartList] = useState([])
+    const [formData, setFormData]= useState({name:"", email:"",validationemail:"",phone:""})
 
     const addToCartList = itemAgregado => {
         setItemCantidad(itemCantidad + itemAgregado.cantidad)
         setCartTotal(cartTotal + itemAgregado.cantidad * itemAgregado.product.price)
-        console.log(cartTotal)
         const findItem = cartList.find(item => item.product.id === itemAgregado.product.id)        
         if (findItem) {
             findItem.cantidad = findItem.cantidad + itemAgregado.cantidad
@@ -37,6 +37,12 @@ const CartContextProvider = ({children}) =>{
         setCartTotal (0)
         setCartList([])
     }
+    const handleChange = (e) =>{
+        setFormData({
+            ...formData, 
+            [e.target.name]: e.target.value
+        })
+    }
     return(
         <CartContext.Provider value ={{
             cartList,
@@ -44,7 +50,9 @@ const CartContextProvider = ({children}) =>{
             removeItem,
             removeCart,
             itemCantidad,
-            cartTotal
+            cartTotal,
+            formData,
+            handleChange
         }}>
             {children}
         </CartContext.Provider>

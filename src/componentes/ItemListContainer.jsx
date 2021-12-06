@@ -14,7 +14,6 @@ export function ItemContainer ({title}){
             const dbQuery = db.collection("items").where("categoria", "==", idCategorias).get()
             dbQuery
             .then (res => {
-                console.log("Llamada a la base de datos");
                 setProduct(res.docs.map(item => ({id:item.id, ...item.data()})))
             })
             .catch(err => console.log(err))
@@ -23,7 +22,6 @@ export function ItemContainer ({title}){
             const dbQuery = db.collection("items").orderBy("categoria").get()
             dbQuery
             .then (res => {
-                console.log("Llamada a la base de datos");
                 setProduct(res.docs.map(item => ({id:item.id, ...item.data()})))
             })
             .catch(err => console.log(err))
@@ -31,7 +29,6 @@ export function ItemContainer ({title}){
         }
         
     },[idCategorias])
-    console.log(idCategorias)
     return(
         <div>
             <div className="productos">
@@ -40,7 +37,7 @@ export function ItemContainer ({title}){
                     <h2>Productos</h2> 
                     <div className="productList">
                     {loading
-                    ? <h2 ClassName="loading">Loading...</h2>
+                    ? <h2 className="loading">Loading...</h2>
                     : <ItemList product={product}/>
                     }
                     </div>

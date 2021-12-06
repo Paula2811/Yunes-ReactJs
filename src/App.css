@@ -1,6 +1,7 @@
 .App {
   list-style-type: none;
   align-items: center;
+  font-family: 'Roboto Slab', serif;
 }
 
 @media (prefers-reduced-motion: no-preference) {

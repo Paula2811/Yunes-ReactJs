@@ -14,7 +14,6 @@ const ItemDetailContainer = () => {
         const dbQuery = db.collection('items').doc(id).get()
         dbQuery
         .then (item => {
-            console.log("Llamada a la base de datos");
             setDetail({id:item.id, ...item.data()})
         })
         .catch(err => console.log(err))

@@ -37,7 +37,7 @@ export default function ItemCount({stock,initial,onAdd}){
                 <Button variant="outline-primary" onClick={aumentar} disabled={count>stock}>+</Button>
             </InputGroup>
             { changeButton 
-            ? <Link to="/cart"><Button variant="outline-primary" >Terminar compra</Button></Link>
+            ? <Link to="/cart"><Button variant="outline-primary" >Ir al carrito</Button></Link>
             : <Button variant="outline-primary" onClick={addManipulator}>Agregar al carrito</Button>
             }
         </div>
